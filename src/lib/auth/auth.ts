@@ -22,6 +22,15 @@ function build() {
     appName: 'Agora Dashboard',
     secret: env().BETTER_AUTH_SECRET,
     baseURL: appUrl(),
+    /**
+     * Every Vercel deployment gets its own URL, and the production alias can differ
+     * again. Accept them all, so opening a preview or a deployment URL still signs in.
+     */
+    trustedOrigins: [
+      appUrl(),
+      'http://localhost:3000',
+      'https://*.vercel.app',
+    ],
 
     database: drizzleAdapter(db, {
       provider: 'pg',
