@@ -25,7 +25,7 @@ Click **Connect** at the top of the project, then:
 - **Session pooler**, port **5432** → this becomes `DATABASE_URL_MIGRATE`.
   Migrations and `pg_dump` use this. Transaction pooling cannot run migrations.
 
-Both look like `postgres://postgres.<ref>:<password>@aws-0-ap-south-1.pooler.supabase.com:PORT/postgres`.
+Both look like `postgres://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:PORT/postgres`.
 Replace `[YOUR-PASSWORD]` with the password from step 1.
 
 ## 3. Close the Data API
@@ -98,10 +98,14 @@ Add each one to **Production** and **Preview**. Tick **Sensitive** on everything
 
 ## 7. Check the project settings, then deploy
 
+> Your Supabase project **agora-chalan-ocr** is in **Tokyo (ap-northeast-1)**, so the Vercel
+> function region must be **Tokyo (hnd1)**. `vercel.json` already sets this. A function and its
+> database in different regions adds a slow round trip to every query.
+
 Still in Vercel **Settings**:
 
 - **General → Framework Preset** → `Next.js`
-- **Functions → Function Region** → **Mumbai (bom1)**, so it sits next to the database
+- **Functions → Function Region** → the region matching your database (Tokyo is `hnd1`, Mumbai is `bom1`), so it sits next to the database
 - **Build and Deployment → Node.js Version** → `24.x`
 
 Then turn deployments on. In `vercel.json`, change:

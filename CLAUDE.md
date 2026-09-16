@@ -127,10 +127,10 @@ local-disk storage driver. Production points the same env vars at Supabase.
 ## Links
 
 - GitHub: https://github.com/alifarman007/agora-chalan-ocr-with-shop-and-admin (public for now)
-- Supabase org: **alifarman** (Free plan) · project **agora-dashboard** *(proposed, not created)* ·
-  region **ap-south-1, Mumbai** *(proposed)*
+- Supabase org: **alifarman** (Free plan) · project **agora-chalan-ocr** (created) ·
+  region **ap-northeast-1, Tokyo**
 - Vercel: personal team (Hobby plan) · project **agora-chalan-ocr-with-shop-and-admin** (exists,
-  linked to the repo, no deployments) · function region **bom1, Mumbai** *(to set)*
+  linked to the repo, no deployments) · function region **hnd1, Tokyo** (matches the database)
 - No refs, IDs, URLs or secrets here while the repo is public.
 
 ⚠️ The Vercel project is already linked to this repo, so **a push to `main` will try to deploy**.
