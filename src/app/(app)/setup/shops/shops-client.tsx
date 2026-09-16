@@ -212,7 +212,7 @@ function AddShopDialog({
         onOpenChange(next)
       }}
     >
-      <form onSubmit={submit}>
+      <form onSubmit={submit} className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <DialogHeader>
           <DialogTitle>Add a shop</DialogTitle>
           <DialogDescription>

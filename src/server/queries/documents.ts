@@ -91,6 +91,8 @@ export type DocumentListRow = {
   reviewedByName: string | null
   submittedByUserId: string | null
   chalanNumber: string | null
+  /** Hours this has been waiting for approval. Computed in SQL so components stay pure. */
+  hoursWaiting: number | null
 }
 
 const uploader = sql<string>`uploader.name`
@@ -124,6 +126,9 @@ export async function listDocuments(
       submittedByName: submitter,
       reviewedByName: reviewer,
       chalanNumber: sql<string | null>`${documents.editedResult}->>'chalan_number'`,
+      hoursWaiting: sql<number | null>`
+        case when ${documents.submittedAt} is null then null
+             else extract(epoch from (now() - ${documents.submittedAt})) / 3600 end`,
     })
     .from(documents)
     .innerJoin(shops, eq(shops.id, documents.shopId))

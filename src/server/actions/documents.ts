@@ -179,7 +179,7 @@ export async function attachThumbnail(
   dataUrl: string,
 ): Promise<ActionResult> {
   try {
-    const { actor, doc } = await requireDocument(documentId, 'document.upload', 'upload')
+    const { doc } = await requireDocument(documentId, 'document.upload', 'upload')
     if (doc.thumbnailKey) return { ok: true }
     const match = /^data:image\/(png|webp|jpeg);base64,([A-Za-z0-9+/=]+)$/.exec(dataUrl)
     if (!match) return { ok: false, error: 'Bad thumbnail.' }
@@ -193,7 +193,6 @@ export async function attachThumbnail(
       .update(documents)
       .set({ thumbnailKey: key, updatedAt: new Date() })
       .where(eq(documents.id, documentId))
-    void actor
     return { ok: true }
   } catch (error) {
     return fail(error)
@@ -507,7 +506,7 @@ export async function deleteDraft(documentId: string): Promise<ActionResult> {
 // ── 6. reads ────────────────────────────────────────────────────────────────
 
 export async function getDocumentDetail(documentId: string) {
-  const { actor, doc } = await requireDocument(documentId, 'document.view')
+  const { actor } = await requireDocument(documentId, 'document.view')
   await reapStaleJobs(documentId)
 
   const fresh = await db.query.documents.findFirst({ where: eq(documents.id, documentId) })

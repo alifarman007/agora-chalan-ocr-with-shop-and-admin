@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { CloudUpload } from 'lucide-react'
-import { and, eq, inArray } from 'drizzle-orm'
+import { eq, inArray } from 'drizzle-orm'
 import { db } from '@/db'
 import { documentTypes, shops } from '@/db/schema'
 import { requirePermission } from '@/lib/auth/session'

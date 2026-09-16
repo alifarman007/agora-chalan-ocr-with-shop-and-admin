@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ShieldCheck, SlidersHorizontal } from 'lucide-react'
 import { getActor } from '@/lib/auth/session'
 import { getSettings } from '@/server/settings'
+import { LinkButton } from '@/components/ui/link-button'
 import { PageHeader } from '@/components/layout/page-header'
-import { buttonVariants } from '@/components/ui/button'
+import { } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/empty-state'
 import { SettingsForm } from './settings-form'
 
@@ -36,10 +36,10 @@ export default async function SettingsPage() {
         description="The rules the whole system runs on. A change takes effect on the next page load."
         actions={
           actor.permissions.has('role.manage') ? (
-            <Link href="/settings/roles" className={buttonVariants({ variant: 'outline' })}>
+            <LinkButton href="/settings/roles"  variant="outline">
               <ShieldCheck className="size-4" aria-hidden="true" />
               Roles and permissions
-            </Link>
+            </LinkButton>
           ) : null
         }
       />

@@ -13,6 +13,7 @@ type Row = {
   submittedByName: string | null
   submittedByUserId: string | null
   thumbUrl: string | null
+  hoursWaiting: number | null
 }
 
 export function PendingPreview({
@@ -35,8 +36,8 @@ export function PendingPreview({
   return (
     <ul className="flex flex-col gap-1">
       {rows.map((row) => {
-        const waitedLong =
-          row.submittedAt && Date.now() - new Date(row.submittedAt).getTime() > 48 * 3600_000
+        // hoursWaiting comes from SQL, so nothing impure runs while rendering.
+        const waitedLong = Number(row.hoursWaiting ?? 0) > 48
         const isOwn = row.submittedByUserId === currentUserId
         return (
           <li key={row.id}>

@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ScrollText } from 'lucide-react'
 import { getActor } from '@/lib/auth/session'
 import { listAuditActions, listAuditLog } from '@/server/actions/admin'
 import { PageHeader } from '@/components/layout/page-header'
-import { buttonVariants } from '@/components/ui/button'
+import { LinkButton } from '@/components/ui/link-button'
 import { EmptyState } from '@/components/ui/empty-state'
 import { cn } from '@/lib/cn'
 import { AuditFilters } from './audit-filters'
@@ -117,31 +116,29 @@ export default async function AuditPage({ searchParams }: { searchParams: Search
             Showing {first}–{last} of {total}
           </p>
           <div className="flex items-center gap-2">
-            <Link
+            <LinkButton
               href={pageHref(page - 1)}
               aria-disabled={page <= 1}
               tabIndex={page <= 1 ? -1 : undefined}
-              className={cn(
-                buttonVariants({ variant: 'outline', size: 'sm' }),
-                page <= 1 && 'pointer-events-none opacity-50',
-              )}
+              variant="outline"
+              size="sm"
+              className={cn(page <= 1 && 'pointer-events-none opacity-50')}
             >
               Previous
-            </Link>
+            </LinkButton>
             <span className="text-sm text-muted-foreground">
               Page {page} of {lastPage}
             </span>
-            <Link
+            <LinkButton
               href={pageHref(page + 1)}
               aria-disabled={page >= lastPage}
               tabIndex={page >= lastPage ? -1 : undefined}
-              className={cn(
-                buttonVariants({ variant: 'outline', size: 'sm' }),
-                page >= lastPage && 'pointer-events-none opacity-50',
-              )}
+              variant="outline"
+              size="sm"
+              className={cn(page >= lastPage && 'pointer-events-none opacity-50')}
             >
               Next
-            </Link>
+            </LinkButton>
           </div>
         </div>
       )}

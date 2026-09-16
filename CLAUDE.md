@@ -12,7 +12,10 @@ and reports around that agent.
 **Stack:** Next.js 16 (App Router) · TypeScript 5.9 · React 19 · Tailwind v4 + shadcn/ui · Drizzle ORM ·
 PostgreSQL on Supabase · Better Auth · Supabase Storage · Google Gemini · deployed on Vercel.
 
-**Status:** planning done, nothing built. Phase 0 is next. See `plan.md` section 17.
+**Status:** Phases 0-7 built and running locally. Sign-in, shops, users, roles, Master Control,
+upload, the OCR pipeline, the chalan editor, approvals and the dashboard all work. The only thing
+missing to make OCR actually read a document is a Gemini API key in `.env.local`.
+See `plan.md` section 17 for what is done and what is left.
 
 ## Structure (planned)
 
@@ -37,7 +40,24 @@ test-data/private/   real chalans, git-ignored, never committed
 
 ## Commands
 
-To be added in Phase 0.
+```bash
+npm run dev          # start the app on http://localhost:3000
+npm run build        # production build
+npm run typecheck    # tsc --noEmit
+npm run lint         # eslint .
+npm run test         # vitest (unit + database integration)
+
+npm run db:generate  # make a migration from the Drizzle schema
+npm run db:migrate   # apply migrations
+npm run db:seed      # roles, permission grid, document types, Master Control defaults
+npm run db:studio    # browse the database
+
+npm run create-admin -- --email you@agora.com.bd --name "Your Name" --password "secret123"
+npm run smoke        # upload -> storage -> OCR, end to end, no browser
+```
+
+Local development uses PostgreSQL on `localhost:5432` (database `agora_dev`) and the
+local-disk storage driver. Production points the same env vars at Supabase.
 
 ## OCR source — do not break this
 

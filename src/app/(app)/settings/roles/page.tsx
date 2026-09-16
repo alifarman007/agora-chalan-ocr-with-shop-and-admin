@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ShieldCheck, SlidersHorizontal } from 'lucide-react'
 import { getActor } from '@/lib/auth/session'
 import { getRolePermissions } from '@/server/actions/admin'
+import { LinkButton } from '@/components/ui/link-button'
 import { PageHeader } from '@/components/layout/page-header'
-import { buttonVariants } from '@/components/ui/button'
+import { } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/empty-state'
 import { RolesGrid } from './roles-grid'
 
@@ -43,10 +43,10 @@ export default async function RolesPage() {
         description="Tick a box to give a role a permission. Changes apply the next time that user loads a page."
         actions={
           actor.permissions.has('settings.manage') ? (
-            <Link href="/settings" className={buttonVariants({ variant: 'outline' })}>
+            <LinkButton href="/settings"  variant="outline">
               <SlidersHorizontal className="size-4" aria-hidden="true" />
               Master Control
-            </Link>
+            </LinkButton>
           ) : null
         }
       />

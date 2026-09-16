@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
 import { Monitor, Moon, Sun } from 'lucide-react'
 import { cn } from '@/lib/cn'
@@ -10,10 +10,17 @@ const OPTIONS = [
   { value: 'system', label: 'System', Icon: Monitor },
 ] as const
 
+const emptySubscribe = () => () => {}
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  // next-themes only knows the real theme in the browser. useSyncExternalStore gives
+  // us "are we on the client yet" without setting state inside an effect.
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  )
 
   // Render a stable placeholder until mounted, so the server and client agree.
   if (!mounted) return <div className="h-8 w-[104px] rounded-md bg-muted/50" aria-hidden />

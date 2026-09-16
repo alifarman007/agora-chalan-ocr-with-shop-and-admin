@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Search, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -23,11 +22,6 @@ export function AuditFilters({
 }) {
   const router = useRouter()
   const params = useSearchParams()
-  const [text, setText] = React.useState(search)
-
-  React.useEffect(() => {
-    setText(search)
-  }, [search])
 
   function apply(next: Record<string, string>) {
     const q = new URLSearchParams(params.toString())
@@ -47,7 +41,8 @@ export function AuditFilters({
       className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-end"
       onSubmit={(e) => {
         e.preventDefault()
-        apply({ q: text.trim() })
+        const value = new FormData(e.currentTarget).get('q')
+        apply({ q: typeof value === 'string' ? value.trim() : '' })
       }}
     >
       <div className="min-w-0 flex-1 sm:max-w-xs">
@@ -56,10 +51,12 @@ export function AuditFilters({
         </label>
         <Input
           id="audit-search"
-          value={text}
+          name="q"
+          /* The key resets the box whenever the URL's search changes. */
+          key={search}
+          defaultValue={search}
           placeholder="Name, action or target"
           leftIcon={<Search className="size-4" aria-hidden="true" />}
-          onChange={(e) => setText(e.target.value)}
         />
       </div>
 
@@ -113,10 +110,7 @@ export function AuditFilters({
             type="button"
             variant="ghost"
             leftIcon={<X className="size-4" aria-hidden="true" />}
-            onClick={() => {
-              setText('')
-              router.push('/audit')
-            }}
+            onClick={() => router.push('/audit')}
           >
             Clear
           </Button>

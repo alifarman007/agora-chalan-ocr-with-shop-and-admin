@@ -1270,84 +1270,84 @@ Each phase ends with typecheck, lint and tests passing, and a small clear commit
 
 ### Phase 0 — Project setup
 - [ ] `create-next-app` 16.3.5: TypeScript, Tailwind, ESLint, App Router, `src/`, Turbopack
-- [ ] Pin every version from section 5; set `engines.node` to `24.x`
-- [ ] Add `.gitattributes` with `* text=auto eol=lf` (protects the approved prompts)
-- [ ] Write `.gitignore` and `.env.example`
-- [ ] ESLint flat config, Prettier, `npm run typecheck`, `npm run lint`, `npm run test`
-- [ ] `vercel.json`: region `bom1`, `git.deploymentEnabled: false` for now
-- [ ] Folder structure per CLAUDE.md; fill in the Commands section of CLAUDE.md
+- [x] Pin every version from section 5; set `engines.node` to `24.x`
+- [x] Add `.gitattributes` with `* text=auto eol=lf` (protects the approved prompts)
+- [x] Write `.gitignore` and `.env.example`
+- [x] ESLint flat config, Prettier, `npm run typecheck`, `npm run lint`, `npm run test`
+- [x] `vercel.json`: region `bom1`, `git.deploymentEnabled: false` for now
+- [x] Folder structure per CLAUDE.md; fill in the Commands section of CLAUDE.md
 - **Done when:** `npm run build`, `typecheck` and `lint` all pass on a clean checkout.
 
 ### Phase 1 — Database and migrations
 - [ ] Supabase project created, Data API disabled, bucket created
-- [ ] Drizzle set up: `postgres.js` with `prepare: false`, two connection URLs
-- [ ] All 13 tables as Drizzle schema, split into readable files
-- [ ] `drizzle-kit generate` → review the SQL by hand → `migrate`
-- [ ] Seed migration: 5 roles, the default permission grid, 2 document types, settings defaults
-- [ ] A script that creates the first Super Admin
+- [x] Drizzle set up: `postgres.js` with `prepare: false`, two connection URLs
+- [x] All 13 tables as Drizzle schema, split into readable files
+- [x] `drizzle-kit generate` → review the SQL by hand → `migrate`
+- [x] Seed migration: 5 roles, the default permission grid, 2 document types, settings defaults
+- [x] A script that creates the first Super Admin
 - [ ] **Prove portability: run every migration against a plain Postgres 17 in Docker**
 - **Done when:** migrations apply cleanly to both Supabase and vanilla Postgres, and the Supabase
   advisors report no error-level findings.
 
 ### Phase 2 — Auth and roles
-- [ ] Better Auth with the Drizzle adapter, email + password, no public sign-up
-- [ ] `/api/auth/[...all]` route; `nextCookies()` **last** in the plugin list
-- [ ] `proxy.ts` for redirects only (cheap cookie check, explicitly not a security boundary)
-- [ ] `getSession()`, `requirePermission()`, `resolveScope()`, `requireDocument()` helpers
-- [ ] Login, forced password change, profile pages
-- [ ] Inactive users blocked and their sessions revoked
+- [x] Better Auth with the Drizzle adapter, email + password, no public sign-up
+- [x] `/api/auth/[...all]` route; `nextCookies()` **last** in the plugin list
+- [x] `proxy.ts` for redirects only (cheap cookie check, explicitly not a security boundary)
+- [x] `getSession()`, `requirePermission()`, `resolveScope()`, `requireDocument()` helpers
+- [x] Login, forced password change, profile pages
+- [x] Inactive users blocked and their sessions revoked
 - **Done when:** a test proves each role reaches exactly its allowed routes and actions, and that a
   shop user cannot read another shop's document by guessing its id.
 
 ### Phase 3 — App shell and layout
-- [ ] shadcn/ui initialised; theme tokens matching section 10; dark mode
-- [ ] Inter + Hind Siliguri via `next/font`; `.bangla-text`; the scrollbar CSS
-- [ ] Sidebar, top bar, mobile sheet, breadcrumbs
-- [ ] Shared pieces: status badge, empty state, skeletons, `formatDhaka()`, `formatBDT()`, toasts
-- [ ] Navigation renders only what the user's permissions allow
+- [x] shadcn/ui initialised; theme tokens matching section 10; dark mode
+- [x] Inter + Hind Siliguri via `next/font`; `.bangla-text`; the scrollbar CSS
+- [x] Sidebar, top bar, mobile sheet, breadcrumbs
+- [x] Shared pieces: status badge, empty state, skeletons, `formatDhaka()`, `formatBDT()`, toasts
+- [x] Navigation renders only what the user's permissions allow
 - **Done when:** the shell looks right at 360 px and 1920 px, in light and dark, and Bangla text
   renders correctly in both.
 
 ### Phase 4 — Setup screens
-- [ ] Shops: list, create, edit, activate/deactivate
-- [ ] Users: list, create, edit role, activate/deactivate, reset password
-- [ ] Approver setup: the approver × shop grid
-- [ ] Master Control: all six tabs, Zod-validated, Super Admin only
-- [ ] The role × permission checkbox grid
-- [ ] Every change writes to `audit_log`; `/audit` displays it
+- [x] Shops: list, create, edit, activate/deactivate
+- [x] Users: list, create, edit role, activate/deactivate, reset password
+- [x] Approver setup: the approver × shop grid
+- [x] Master Control: all six tabs, Zod-validated, Super Admin only
+- [x] The role × permission checkbox grid
+- [x] Every change writes to `audit_log`; `/audit` displays it
 - **Done when:** a Super Admin can set up a shop, a user and an approver from scratch, and every
   change appears in the audit log.
 
 ### Phase 5 — OCR agent port ⚠️ *the highest-risk phase*
-- [ ] Copy `types/`, `utils/`, `services/` from the approved commit **with only the changes in 3.4**
-- [ ] Unit test asserting **both prompt SHA-256 hashes** (section 3.5)
-- [ ] `StorageService` interface + Supabase driver
-- [ ] `createUploadUrl` / `registerUpload` / direct browser upload with a progress bar
-- [ ] The OCR worker route: 202 + `after()`, `maxDuration = 300`, raw-text checkpoint
-- [ ] Status polling that preserves the approved "Step 1/2 → Step 2/2" wording (Q12a)
-- [ ] Port `ChalanEditor` and all sections as client components
-- [ ] Thumbnails: `sharp` for images, browser pdf.js for PDFs
-- [ ] Autosaving drafts with optimistic locking
+- [x] Copy `types/`, `utils/`, `services/` from the approved commit **with only the changes in 3.4**
+- [x] Unit test asserting **both prompt SHA-256 hashes** (section 3.5)
+- [x] `StorageService` interface + Supabase driver
+- [x] `createUploadUrl` / `registerUpload` / direct browser upload with a progress bar
+- [x] The OCR worker route: 202 + `after()`, `maxDuration = 300`, raw-text checkpoint
+- [x] Status polling that preserves the approved "Step 1/2 → Step 2/2" wording (Q12a)
+- [x] Port `ChalanEditor` and all sections as client components
+- [x] Thumbnails: `sharp` for images, browser pdf.js for PDFs
+- [x] Autosaving drafts with optimistic locking
 - [ ] Tailwind v4 visual check list (section 10) completed against screenshots of the old app
 - [ ] **The parity test passes** (section 18)
 - **Done when:** the same sample chalans produce the same results in the old app and the new one, and
   the JSON and Excel exports match field for field.
 
 ### Phase 6 — Approval flow
-- [ ] Submit, approve, reject, resubmit, with conditional UPDATEs and `request_id` idempotency
-- [ ] The self-approval rule, enforced in SQL
-- [ ] `/approvals` queue and `/approved` list
-- [ ] The document history timeline
-- [ ] Notes required on reject
+- [x] Submit, approve, reject, resubmit, with conditional UPDATEs and `request_id` idempotency
+- [x] The self-approval rule, enforced in SQL
+- [x] `/approvals` queue and `/approved` list
+- [x] The document history timeline
+- [x] Notes required on reject
 - **Done when:** concurrency tests prove that two approvers racing produce exactly one decision, that
   double-clicking Submit creates one submission, and that a stale edit is refused cleanly.
 
 ### Phase 7 — Dashboard
-- [ ] All seven widgets from section 9.1
-- [ ] Shop and date filters, in Dhaka time, kept in the URL
-- [ ] Per-shop thumbnails via one `LATERAL` join, never N queries
+- [x] All seven widgets from section 9.1
+- [x] Shop and date filters, in Dhaka time, kept in the URL
+- [x] Per-shop thumbnails via one `LATERAL` join, never N queries
 - [ ] Documents list with TanStack Table: sort, filter, paginate, search
-- [ ] Admin-only cost and success-rate cards
+- [x] Admin-only cost and success-rate cards
 - **Done when:** the dashboard loads in under 1.5 s with 5,000 seeded documents, and every number
   matches a hand-written SQL check.
 

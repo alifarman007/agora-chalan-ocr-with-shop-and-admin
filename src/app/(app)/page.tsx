@@ -72,10 +72,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
   const needsAttention = (counts.byStatus.rejected ?? 0) + (counts.byStatus.failed ?? 0)
 
   const rate = settings['cost.usd_to_bdt']
-  const allShops =
-    scope === 'all'
-      ? shops.map((s) => ({ id: s.shopId, name: s.shopName, code: s.shopCode }))
-      : shops.map((s) => ({ id: s.shopId, name: s.shopName, code: s.shopCode }))
+  const allShops = shops.map((s) => ({ id: s.shopId, name: s.shopName, code: s.shopCode }))
 
   return (
     <>

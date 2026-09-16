@@ -68,10 +68,8 @@ export function DocumentTable({
                 ? row.reviewedAt
                 : row.createdAt
           const isOwn = currentUserId && row.submittedByUserId === currentUserId
-          const waitedLong =
-            variant === 'pending' &&
-            row.submittedAt &&
-            Date.now() - new Date(row.submittedAt).getTime() > 48 * 3600_000
+          // hoursWaiting comes from SQL, so nothing impure runs while rendering.
+          const waitedLong = variant === 'pending' && Number(row.hoursWaiting ?? 0) > 48
 
           return (
             <TableRow key={row.id} className="group">
