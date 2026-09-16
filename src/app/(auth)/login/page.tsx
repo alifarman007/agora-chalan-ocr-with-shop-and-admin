@@ -7,6 +7,9 @@ import { LoginForm } from './login-form'
 
 export const metadata: Metadata = { title: 'Sign in' }
 
+// Reads the session and the company name, so there is nothing to prerender.
+export const dynamic = 'force-dynamic'
+
 export default async function LoginPage() {
   const actor = await getActor()
   if (actor) redirect('/')

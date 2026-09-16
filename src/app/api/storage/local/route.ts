@@ -12,7 +12,8 @@ import { verifyLocalKey } from '@/lib/storage/local'
 export const dynamic = 'force-dynamic'
 
 function root() {
-  return path.resolve(process.cwd(), process.env.STORAGE_LOCAL_DIR ?? '.storage')
+  // See src/lib/storage/local.ts — development-only driver, computed path.
+  return path.resolve(/* turbopackIgnore: true */ process.cwd(), process.env.STORAGE_LOCAL_DIR ?? '.storage')
 }
 
 function resolveKey(key: string) {

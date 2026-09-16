@@ -13,7 +13,9 @@ import { env } from '@/lib/env'
 import type { ObjectHead, SignedUpload, StorageService } from './types'
 
 function root() {
-  return path.resolve(process.cwd(), process.env.STORAGE_LOCAL_DIR ?? '.storage')
+  // turbopackIgnore keeps Turbopack from tracing (and bundling) the whole project
+  // just because this path is computed at runtime. This driver is development-only.
+  return path.resolve(/* turbopackIgnore: true */ process.cwd(), process.env.STORAGE_LOCAL_DIR ?? '.storage')
 }
 
 function filePath(key: string) {

@@ -13,6 +13,13 @@ import { UserMenu } from '@/components/layout/user-menu'
  * and route handler re-checks for itself, because Server Actions POST to the page
  * route and can bypass a layout entirely.
  */
+/**
+ * Every screen here depends on who is signed in, so there is nothing to prerender.
+ * Saying so explicitly also keeps `next build` working when the database environment
+ * variables are not present at build time, which is the normal case on a fresh deploy.
+ */
+export const dynamic = 'force-dynamic'
+
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const actor = await getActor()
   if (!actor) redirect('/login')
