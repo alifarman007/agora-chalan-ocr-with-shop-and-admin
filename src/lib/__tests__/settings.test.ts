@@ -37,12 +37,47 @@ describe('settings defaults', () => {
     expect(pricing['gemini-3.6-flash'].output_usd_per_1m).toBe(3.75)
   })
 
-  it('labels and groups every key', () => {
-    const grouped = new Set(SETTING_GROUPS.flatMap((g) => g.keys))
+  it('labels every key', () => {
     for (const key of SETTING_KEYS) {
       expect(SETTING_LABELS[key], key + ' has no label').toBeTruthy()
-      expect(grouped.has(key), key + ' is in no group').toBe(true)
     }
+  })
+
+  it('only groups keys that really exist', () => {
+    for (const group of SETTING_GROUPS) {
+      for (const key of group.keys) {
+        expect(SETTING_KEYS, group.label + ' groups unknown ' + key).toContain(key)
+      }
+    }
+  })
+
+  it('hides the OCR and cost settings from Master Control, but keeps them working', () => {
+    // They are read by the OCR pipeline and the cost report; an administrator just
+    // does not edit them from the screen. Removing the KEYS would break OCR.
+    const shown = new Set(SETTING_GROUPS.flatMap((g) => g.keys))
+    for (const hidden of [
+      'ocr.default_model',
+      'ocr.max_attempts',
+      'ocr.stale_after_minutes',
+      'cost.pricing',
+      'cost.usd_to_bdt',
+    ] as const) {
+      expect(shown.has(hidden), hidden + ' should not be on the screen').toBe(false)
+      expect(SETTING_KEYS, hidden + ' must still exist').toContain(hidden)
+      expect(
+        (defaultSettings() as Record<string, unknown>)[hidden],
+        hidden + ' must still have a default',
+      ).not.toBeUndefined()
+    }
+  })
+
+  it('leaves four tabs: Company, Uploads, Approval, Display', () => {
+    expect(SETTING_GROUPS.map((g) => g.label)).toEqual([
+      'Company',
+      'Uploads',
+      'Approval',
+      'Display',
+    ])
   })
 
   it('keeps cost and approval rules out of the public keys', () => {

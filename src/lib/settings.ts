@@ -111,7 +111,14 @@ export function validateSetting(key: string, value: unknown) {
   return { ok: true as const, value: parsed.data }
 }
 
-/** Human labels and grouping for the Master Control screen. */
+/**
+ * Human labels and grouping for the Master Control screen.
+ *
+ * NOTE: the `ocr.*` and `cost.*` keys are deliberately NOT shown here. They are still
+ * read by the OCR pipeline and the cost report, and they still live in the schema with
+ * their defaults — they are simply not something an administrator edits from the UI.
+ * To expose them again, add their group back to this list; nothing else has to change.
+ */
 export const SETTING_GROUPS: { label: string; description: string; keys: SettingKey[] }[] = [
   {
     label: 'Company',
@@ -131,16 +138,6 @@ export const SETTING_GROUPS: { label: string; description: string; keys: Setting
       'approval.require_note_on_reject',
       'approval.require_note_on_approve',
     ],
-  },
-  {
-    label: 'OCR',
-    description: 'Which model reads the documents, and how hard it retries.',
-    keys: ['ocr.default_model', 'ocr.max_attempts', 'ocr.stale_after_minutes'],
-  },
-  {
-    label: 'Cost',
-    description: 'Used to estimate what each document costs to read.',
-    keys: ['cost.pricing', 'cost.usd_to_bdt'],
   },
   {
     label: 'Display',
