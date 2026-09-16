@@ -1,0 +1,10 @@
+# Force LF everywhere. The approved OCR prompts are template literals: a CRLF
+# checkout would change their bytes and therefore every Gemini request.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pdf binary
+*.ico binary
+*.xlsx binary

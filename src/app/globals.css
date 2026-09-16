@@ -1,0 +1,200 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens.
+ * The light palette matches the client-approved OCR app so the dashboard and the
+ * extractor read as one product: slate surfaces, blue-600 brand, indigo-600 primary.
+ */
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(0.984 0.003 247.86); /* slate-50  */
+  --foreground: oklch(0.208 0.042 265.75); /* slate-900 */
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.208 0.042 265.75);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.208 0.042 265.75);
+
+  --primary: oklch(0.511 0.262 276.97); /* indigo-600 */
+  --primary-foreground: oklch(1 0 0);
+
+  --brand: oklch(0.546 0.245 262.88); /* blue-600 */
+  --brand-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.968 0.007 247.9); /* slate-100 */
+  --secondary-foreground: oklch(0.279 0.041 260.03);
+
+  --muted: oklch(0.968 0.007 247.9);
+  --muted-foreground: oklch(0.554 0.041 257.42); /* slate-500 */
+
+  --accent: oklch(0.968 0.007 247.9);
+  --accent-foreground: oklch(0.279 0.041 260.03);
+
+  --destructive: oklch(0.577 0.245 27.33); /* red-600 */
+  --destructive-foreground: oklch(1 0 0);
+
+  --success: oklch(0.596 0.145 163.23); /* emerald-600 */
+  --success-foreground: oklch(1 0 0);
+
+  --warning: oklch(0.769 0.188 70.08); /* amber-500 */
+  --warning-foreground: oklch(0.208 0.042 265.75);
+
+  --border: oklch(0.929 0.013 255.51); /* slate-200 */
+  --input: oklch(0.929 0.013 255.51);
+  --ring: oklch(0.546 0.245 262.88);
+
+  --chart-1: oklch(0.546 0.245 262.88);
+  --chart-2: oklch(0.596 0.145 163.23);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.577 0.245 27.33);
+  --chart-5: oklch(0.511 0.262 276.97);
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.208 0.042 265.75);
+}
+
+.dark {
+  --background: oklch(0.193 0.017 258.36);
+  --foreground: oklch(0.968 0.007 247.9);
+
+  --card: oklch(0.243 0.021 258.36);
+  --card-foreground: oklch(0.968 0.007 247.9);
+  --popover: oklch(0.243 0.021 258.36);
+  --popover-foreground: oklch(0.968 0.007 247.9);
+
+  --primary: oklch(0.628 0.233 277.2);
+  --primary-foreground: oklch(0.193 0.017 258.36);
+
+  --brand: oklch(0.65 0.2 262.88);
+  --brand-foreground: oklch(0.193 0.017 258.36);
+
+  --secondary: oklch(0.295 0.024 258.36);
+  --secondary-foreground: oklch(0.968 0.007 247.9);
+
+  --muted: oklch(0.295 0.024 258.36);
+  --muted-foreground: oklch(0.704 0.031 256.79);
+
+  --accent: oklch(0.32 0.026 258.36);
+  --accent-foreground: oklch(0.968 0.007 247.9);
+
+  --destructive: oklch(0.65 0.21 27.33);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --success: oklch(0.68 0.14 163.23);
+  --success-foreground: oklch(0.193 0.017 258.36);
+
+  --warning: oklch(0.8 0.16 70.08);
+  --warning-foreground: oklch(0.193 0.017 258.36);
+
+  --border: oklch(0.34 0.027 258.36);
+  --input: oklch(0.34 0.027 258.36);
+  --ring: oklch(0.65 0.2 262.88);
+
+  --sidebar: oklch(0.215 0.019 258.36);
+  --sidebar-foreground: oklch(0.968 0.007 247.9);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-bangla: var(--font-hind-siliguri), var(--font-inter), sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+
+  /*
+   * Carried over verbatim from the approved OCR app (index.html).
+   * The hex values are intentional: Tailwind v4's palette is OKLCH and would not
+   * reproduce these exact greys.
+   */
+  .bangla-text {
+    font-family: var(--font-bangla);
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  .dark ::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+
+  /* Tailwind v4 dropped the pointer cursor on buttons; put it back. */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
