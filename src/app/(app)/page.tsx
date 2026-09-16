@@ -24,7 +24,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { EmptyState } from '@/components/ui/empty-state'
 import { DashboardFilters } from './dashboard-filters'
 import { KpiCard } from './kpi-card'
-import { TrendChart } from './trend-chart'
+import { TrendChartLoader } from './trend-chart-loader'
 import { ShopCards } from './shop-cards'
 import { PendingPreview } from './pending-preview'
 
@@ -54,10 +54,21 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
   const filters = { from: range.start, to: range.end, shopIds }
 
   const scope = actor.readScope
-  const [counts, trend, shops, pending, settings, cost] = await Promise.all([
+
+  /**
+   * Deliberately TWO batches of three, not one Promise.all of six.
+   *
+   * Firing all six at once deadlocks against Supabase's transaction pooler: the page
+   * hangs forever and never sends a byte. Three at a time is comfortably inside the
+   * connection pool (max 5) and costs about a second in total. Do not "optimise" this
+   * back into a single Promise.all.
+   */
+  const [counts, trend, shops] = await Promise.all([
     countsByStatus(scope, filters),
     dailyTrend(scope, filters),
     perShopSummary(scope, filters),
+  ])
+  const [pending, settings, cost] = await Promise.all([
     listDocuments(scope, { ...filters, status: 'pending_approval' }, { limit: 5, offset: 0 }),
     getSettings(),
     actor.permissions.has('shop.view_all')
@@ -150,7 +161,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
             <p className="mb-4 text-xs text-muted-foreground">
               Counted by the day the document was uploaded, in Bangladesh time.
             </p>
-            <TrendChart data={trend} from={from} to={to} />
+            <TrendChartLoader data={trend} from={from} to={to} />
           </CardContent>
         </Card>
 
